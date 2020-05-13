@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninja Gold</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div id="wrapper">
+        <h2 id="title"> Your Ninja Gold: {{request.session.gold}}</h2>
+        <form action="/process_money" method="POST">
+            {% csrf_token %}
+            <h3>Farm</h3>
+            <P>(earns 10-20 gold)</P>
+            <input type="hidden" name="location" value="farm">
+            <button type="submit">Farm!</button>
+        </form>
+        <form action="/process_money" method="POST">
+            {% csrf_token %}
+            <h3>Cave</h3>
+            <P>(earns 5-10 gold)</P>
+            <input type="hidden" name="location" value="cave">
+            <button type="submit">Spelunk!</button>
+        </form>
+        <form action="/process_money" method="POST">
+            {% csrf_token %}
+            <h3>House</h3>
+            <P>(earns 2-5 gold)</P>
+            <input type="hidden" name="location" value="house">
+            <button type="submit">Netflix and Chill!</button>
+        </form>
+        <form action="/process_money" method="POST">
+            {% csrf_token %}
+            <h3>Casino</h3>
+            <P>(Bet 0-50 gold)</P>
+            <input type="hidden" name="location" value="casino">
+            <button type="submit">You Appear To Have No Expenses, So Why Not?!</button>
+        </form>
+        <h4>Activity Log:</h4>
+        <div id="log">
+            {% for entry in request.session.log %}
+            <p>{{entry}}</p>
+            {% endfor %}
+        </div>
+        <br>
+        <a href="/reset" type="button" id="reset">RESET</a>
+
+</body>
+</html>
